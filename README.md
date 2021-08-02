@@ -1,4 +1,4 @@
-# Updates-on-RNEspTouch.java
+# Updates on RNEspTouch.java
 
 This is an particular update on  RNEsptouchModule.java file from the project from [@liuminghui2017](https://github.com/liuminghui2017/react-native-esptouch)
 
