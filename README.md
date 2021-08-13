@@ -6,18 +6,20 @@ Here I fix the known problem:
 
 * attempt to invoke virtual method int android content.Context.checkPermission(java.lang.String, int, int) on a null object reference
 
-Add add some new funcionalities to **getNetInfo** API:
+And add some new funcionalities to **getNetInfo** API:
 
-* **res.ip** -> returns the ip of the divice using the App (not the ESP IP!)
-* **res.ipPrefix** -> returns the same ip above, without the last octet
+* **res.ip** -> returns the ip of the device using the App (not the ESP IP!).
+* **res.ipPrefix** -> returns the same ip above, without the last octet.
+* * **res.espIP** -> returns the IP of the new ESP added to the network.
 
 ## Usage example in Java Script code for React Native
 
 ```js
 function getInfo( async()=> {
-  const { ip, ipPrefix } = await RNEsptouch.getNetInfo();
+  const { ip, ipPrefix, espIP } = await RNEsptouch.getNetInfo();
    console.log("ip:", ip);
    console.log("ipPrefix:", ipPrefix);
+   console.log("espIP:", espIP);
 })
 
 ```
