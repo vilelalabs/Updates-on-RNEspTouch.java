@@ -10,7 +10,7 @@ And add some new funcionalities to **getNetInfo** API:
 
 * **res.ip** -> returns the ip of the device using the App (not the ESP IP!).
 * **res.ipPrefix** -> returns the same ip above, without the last octet.
-* * **res.espIP** -> returns the IP of the new ESP added to the network.
+* **res.espIP** -> returns the IP of the new ESP added to the network.
 
 ## Usage example in Java Script code for React Native
 
