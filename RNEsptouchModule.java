@@ -63,6 +63,10 @@ public class RNEsptouchModule extends ReactContextBaseJavaModule implements Life
     private boolean  mReceiverRegistered = false; // 记录是否有注册广播接收
     private EsptouchAsyncTask4 mTask; // 配置任务
 
+    //salva o IP do ESP que acabou de ser inserido na rede
+    private String   espIP = "";
+
+
     private String IntegerIPConvertToStr(int ip){
     return String.format("%d.%d.%d.%d",
          (ip & 0xff),   
@@ -74,7 +78,6 @@ public class RNEsptouchModule extends ReactContextBaseJavaModule implements Life
     //gera o prefixo do ip recebido pelo aparelho
     private String getIpPrefix(){
         String fullIP = IntegerIPConvertToStr(mIP);
-        //String ipPrefix = fullIP.split('.').slice(0, 3).join('.'));
         String[] parts = fullIP.split("[.]");
         String ipPrefix = parts[0]+"."+parts[1]+"."+parts[2];
         return ipPrefix;
@@ -205,10 +208,13 @@ public class RNEsptouchModule extends ReactContextBaseJavaModule implements Life
         WritableMap map = Arguments.createMap();
         map.putString("ssid", mSSID);
         map.putString("bssid", mBSSID);
+        
         // provides de IP address of the device running the application, not the ESP.
         map.putString("ip", IntegerIPConvertToStr(mIP));
         // provides de IP's '3 firsts' prefix to search for a ESP in same network
         map.putString("ipPrefix", getIpPrefix());
+        // provides de IP address of the new device added on Network! The ESP!
+        map.putString("espIP", espIP);
         promise.resolve(map);
     }
 
@@ -380,6 +386,11 @@ public class RNEsptouchModule extends ReactContextBaseJavaModule implements Life
                 // executing before receiving enough results
                 if (firstResult.isSuc()) {
                     // 配置成功
+
+                    //Pega o endereço do ESP que acabou de se conectar
+                    String msg = (firstResult.getInetAddress().getHostAddress());
+                    espIP = msg;
+
                     Log.i("RNEsptouchModule","EspTouch success");
                     respondToRN(200, "EspTouch succcess");
                 } else {
